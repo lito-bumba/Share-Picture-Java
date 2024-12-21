@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public Intent createShareIntent() {
         Intent shareIntent = createChooserIntent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
+        shareIntent.setType("image/png");
         shareIntent.putExtra(Intent.EXTRA_TEXT, getShareText());
         shareIntent.putExtra(Intent.EXTRA_STREAM, getShareImageUri());
         return shareIntent;
