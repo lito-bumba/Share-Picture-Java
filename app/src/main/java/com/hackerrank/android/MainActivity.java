@@ -40,42 +40,54 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateButtonText();
+        updateImage();
+    }
+
     public void updateButtonText() {
-        //add code there
+        binding.btnShare.setText(R.string.send_btn_text);
     }
 
     public void updateImage() {
-        //add code there
+        binding.imgScreen.setImageResource(R.drawable.share_image);
     }
 
     public void shareImage() {
-        //add code there
+        startActivity(createShareIntent());
     }
 
     public Intent createShareIntent() {
-        //add code there
-
-        return new Intent();
+        Intent shareIntent = createChooserIntent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getShareText());
+        shareIntent.putExtra(Intent.EXTRA_STREAM, getShareImageUri());
+        return shareIntent;
     }
 
     public Intent createChooserIntent() {
-        //add code there
-
-        return new Intent();
+        Intent chooserIntent = new Intent();
+        chooserIntent.putExtra(Intent.EXTRA_TITLE, getResources().getString(R.string.title_chooser_text));
+        chooserIntent.setAction(Intent.ACTION_CHOOSER);
+        return chooserIntent;
     }
 
     public String getShareText() {
-        //add code there
+        String etInput = binding.etInput.getText().toString();
 
-        return "";
+        if (etInput.isEmpty()) {
+            return getString(R.string.share_empty_text);
+        }
+
+        return etInput;
     }
 
     public Uri getShareImageUri() {
-        //add code there
-
-        return Uri.EMPTY;
+        String srcImage = "android.resource://com.hackerrank.starter/drawable/share_image";
+        return Uri.parse(srcImage);
     }
-
-
 }
 
