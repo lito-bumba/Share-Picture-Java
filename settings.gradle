@@ -1,0 +1,2 @@
+rootProject.name = "Share Picture Java"
+include ':app'
